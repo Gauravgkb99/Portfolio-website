@@ -22,12 +22,19 @@ app.use(cors({
 app.use(express.json())
 
 // Create Nodemailer transporter (Gmail)
+console.log('📧 Email config:', {
+    user: process.env.EMAIL_USER || '❌ NOT SET',
+    pass: process.env.EMAIL_PASS ? '✅ SET (' + process.env.EMAIL_PASS.length + ' chars)' : '❌ NOT SET',
+})
+
 const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASS,
     },
+    connectionTimeout: 10000,
+    socketTimeout: 10000,
 })
 
 // Verify transporter on startup
