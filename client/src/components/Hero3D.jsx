@@ -16,7 +16,7 @@ function AnimatedSphere() {
 
     return (
         <Float speed={1.2} rotationIntensity={0.2} floatIntensity={1}>
-            <Sphere ref={meshRef} args={[2.2, 100, 100]} position={[7, 0.5, -3]}>
+            <Sphere ref={meshRef} args={[2.2, 64, 64]} position={[7, 0.5, -3]}>
                 <MeshDistortMaterial
                     color="#00d4ff"
                     attach="material"
@@ -35,7 +35,7 @@ function AnimatedSphere() {
 }
 
 function FloatingParticles() {
-    const count = 150
+    const count = 80
     const meshRef = useRef()
 
     const positions = useMemo(() => {
@@ -104,7 +104,7 @@ function Scene() {
             <pointLight position={[5, 0, 5]} intensity={0.4} color="#ec4899" />
             <AnimatedSphere />
             <FloatingParticles />
-            <Stars radius={120} depth={60} count={1000} factor={3} saturation={0} fade speed={0.8} />
+            <Stars radius={120} depth={60} count={500} factor={3} saturation={0} fade speed={0.8} />
         </>
     )
 }
@@ -116,7 +116,9 @@ export default function Hero3D() {
                 <Canvas
                     camera={{ position: [0, 0, 10], fov: 50 }}
                     style={{ background: 'transparent' }}
-                    gl={{ antialias: true, alpha: true }}
+                    dpr={[1, 1.5]}
+                    performance={{ min: 0.5 }}
+                    gl={{ antialias: false, alpha: true, powerPreference: 'high-performance' }}
                 >
                     <Scene />
                 </Canvas>
