@@ -1,45 +1,8 @@
-import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { FaEnvelope, FaLinkedin, FaGithub, FaPaperPlane } from 'react-icons/fa'
+import { FaEnvelope, FaLinkedin, FaGithub } from 'react-icons/fa'
 import { SiLeetcode } from "react-icons/si";
 
 export default function Contact() {
-    const [formData, setFormData] = useState({ name: '', email: '', message: '' })
-    const [status, setStatus] = useState('')
-    const [sending, setSending] = useState(false)
-
-    const handleChange = (e) => {
-        setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }))
-    }
-
-    const handleSubmit = async (e) => {
-        e.preventDefault()
-        setSending(true)
-        setStatus('')
-
-        try {
-            const API_BASE = import.meta.env.PROD
-                ? import.meta.env.VITE_API_URL
-                : ''
-            const res = await fetch(`${API_BASE}/api/contact`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(formData),
-            })
-
-            if (res.ok) {
-                setStatus('success')
-                setFormData({ name: '', email: '', message: '' })
-            } else {
-                setStatus('error')
-            }
-        } catch (err) {
-            setStatus('error')
-        } finally {
-            setSending(false)
-        }
-    }
-
     return (
         <section className="section" id="contact" style={{ position: 'relative' }}>
             <div className="bg-glow bg-glow-cyan" style={{ bottom: '5%', right: '-5%' }} />
@@ -61,8 +24,8 @@ export default function Contact() {
                 <div className="contact-wrapper">
                     <motion.div
                         className="contact-info"
-                        initial={{ opacity: 0, x: -30 }}
-                        whileInView={{ opacity: 1, x: 0 }}
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, amount: 0.3 }}
                         transition={{ duration: 0.6 }}
                     >
@@ -90,62 +53,6 @@ export default function Contact() {
                             </a>
                         </div>
                     </motion.div>
-
-                    <motion.form
-                        className="glass-card contact-form"
-                        onSubmit={handleSubmit}
-                        initial={{ opacity: 0, x: 30 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true, amount: 0.3 }}
-                        transition={{ duration: 0.6 }}
-                    >
-                        <div className="form-group">
-                            <label htmlFor="contact-name">Name</label>
-                            <input
-                                type="text"
-                                id="contact-name"
-                                name="name"
-                                placeholder="Your name"
-                                value={formData.name}
-                                onChange={handleChange}
-                                required
-                            />
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="contact-email">Email</label>
-                            <input
-                                type="email"
-                                id="contact-email"
-                                name="email"
-                                placeholder="your@email.com"
-                                value={formData.email}
-                                onChange={handleChange}
-                                required
-                            />
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="contact-message">Message</label>
-                            <textarea
-                                id="contact-message"
-                                name="message"
-                                placeholder="Tell me about your project..."
-                                value={formData.message}
-                                onChange={handleChange}
-                                required
-                            />
-                        </div>
-                        <button type="submit" className="btn btn-primary" disabled={sending} style={{ width: '100%', justifyContent: 'center' }}>
-                            {sending ? 'Sending...' : (
-                                <>Send Message <FaPaperPlane /></>
-                            )}
-                        </button>
-                        {status === 'success' && (
-                            <p className="form-status success">✅ Message sent successfully! I'll get back to you soon.</p>
-                        )}
-                        {status === 'error' && (
-                            <p className="form-status error">❌ Something went wrong. Please try emailing me directly.</p>
-                        )}
-                    </motion.form>
                 </div>
             </div>
         </section>
