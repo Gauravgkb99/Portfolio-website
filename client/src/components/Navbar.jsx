@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { createPortal } from 'react-dom'
 import { FaBars, FaTimes } from 'react-icons/fa'
 
 const navItems = [
@@ -6,7 +7,6 @@ const navItems = [
     { label: 'Experience', href: '#experience' },
     { label: 'Skills', href: '#skills' },
     { label: 'Education', href: '#education' },
-    // { label: 'Contact', href: '#contact' },
 ]
 
 export default function Navbar() {
@@ -20,11 +20,7 @@ export default function Navbar() {
     }, [])
 
     useEffect(() => {
-        if (menuOpen) {
-            document.body.style.overflow = 'hidden'
-        } else {
-            document.body.style.overflow = ''
-        }
+        document.body.style.overflow = menuOpen ? 'hidden' : ''
         return () => { document.body.style.overflow = '' }
     }, [menuOpen])
 
@@ -36,25 +32,45 @@ export default function Navbar() {
     }
 
     return (
-        <nav className={`navbar ${scrolled ? 'scrolled' : ''} ${menuOpen ? 'menu-open' : ''}`}>
-            <div className="container">
-                <a href="#" className="nav-logo" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-                    GK<span style={{ color: 'var(--accent-cyan)' }}>.</span>
-                </a>
+        <>
+            <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
+                <div className="container">
+                    <a href="#" className="nav-logo" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+                        GK<span style={{ color: 'var(--accent-cyan)' }}>.</span>
+                    </a>
 
-                <button className="nav-toggle" onClick={() => setMenuOpen(!menuOpen)} aria-label={menuOpen ? 'Close menu' : 'Open menu'}>
-                    {menuOpen ? <FaTimes size={22} /> : (
-                        <>
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                        </>
-                    )}
-                </button>
-            </div>
+                    {/* Desktop nav links */}
+                    <div className="nav-links-desktop">
+                        {navItems.map((item) => (
+                            <a
+                                key={item.href}
+                                href={item.href}
+                                className="nav-link"
+                                onClick={(e) => handleNavClick(e, item.href)}
+                            >
+                                {item.label}
+                            </a>
+                        ))}
+                        <a href="#contact" className="btn btn-primary" onClick={(e) => handleNavClick(e, '#contact')} style={{ padding: '10px 24px', fontSize: '0.85rem' }}>
+                            Let's Talk
+                        </a>
+                    </div>
 
-            {menuOpen && (
-                <div className="nav-links open">
+                    <button className="nav-toggle" onClick={() => setMenuOpen(!menuOpen)} aria-label={menuOpen ? 'Close menu' : 'Open menu'}>
+                        {menuOpen ? <FaTimes size={22} /> : (
+                            <>
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </>
+                        )}
+                    </button>
+                </div>
+            </nav>
+
+            {/* Mobile overlay — rendered via portal on document.body, outside navbar */}
+            {createPortal(
+                <div className={`mobile-nav-overlay ${menuOpen ? 'open' : ''}`}>
                     {navItems.map((item) => (
                         <a
                             key={item.href}
@@ -68,8 +84,9 @@ export default function Navbar() {
                     <a href="#contact" className="btn btn-primary" onClick={(e) => handleNavClick(e, '#contact')} style={{ padding: '10px 24px', fontSize: '0.85rem' }}>
                         Let's Talk
                     </a>
-                </div>
+                </div>,
+                document.body
             )}
-        </nav>
+        </>
     )
 }
