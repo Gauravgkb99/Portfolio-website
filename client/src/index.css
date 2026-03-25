@@ -239,6 +239,11 @@ img {
   padding: 12px 0;
 }
 
+.navbar.menu-open {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
 .navbar .container {
   display: flex;
   justify-content: space-between;
@@ -1012,12 +1017,11 @@ img {
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(10, 10, 26, 0.97);
-    backdrop-filter: blur(20px);
+    background: var(--bg-primary);
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 24px;
+    gap: 32px;
     z-index: 999;
   }
 
@@ -1026,12 +1030,14 @@ img {
   }
 
   .nav-links .nav-link {
-    font-size: 1.3rem;
+    font-size: 1.5rem;
+    font-weight: 600;
   }
 
   .nav-toggle {
     display: flex;
     z-index: 1001;
+    color: var(--text-primary);
   }
 
   .hero-content {

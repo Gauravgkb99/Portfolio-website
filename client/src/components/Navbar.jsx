@@ -6,7 +6,7 @@ const navItems = [
     { label: 'Experience', href: '#experience' },
     { label: 'Skills', href: '#skills' },
     { label: 'Education', href: '#education' },
-    { label: 'Contact', href: '#contact' },
+    // { label: 'Contact', href: '#contact' },
 ]
 
 export default function Navbar() {
@@ -19,6 +19,15 @@ export default function Navbar() {
         return () => window.removeEventListener('scroll', handleScroll)
     }, [])
 
+    useEffect(() => {
+        if (menuOpen) {
+            document.body.style.overflow = 'hidden'
+        } else {
+            document.body.style.overflow = ''
+        }
+        return () => { document.body.style.overflow = '' }
+    }, [menuOpen])
+
     const handleNavClick = (e, href) => {
         e.preventDefault()
         setMenuOpen(false)
@@ -27,23 +36,25 @@ export default function Navbar() {
     }
 
     return (
-        <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
+        <nav className={`navbar ${scrolled ? 'scrolled' : ''} ${menuOpen ? 'menu-open' : ''}`}>
             <div className="container">
                 <a href="#" className="nav-logo" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
                     GK<span style={{ color: 'var(--accent-cyan)' }}>.</span>
                 </a>
 
-                <div className={`nav-links ${menuOpen ? 'open' : ''}`}>
-                    {menuOpen && (
-                        <button
-                            className="nav-toggle"
-                            onClick={() => setMenuOpen(false)}
-                            aria-label="Close menu"
-                            style={{ position: 'absolute', top: 24, right: 24 }}
-                        >
-                            <FaTimes size={24} color="var(--text-primary)" />
-                        </button>
+                <button className="nav-toggle" onClick={() => setMenuOpen(!menuOpen)} aria-label={menuOpen ? 'Close menu' : 'Open menu'}>
+                    {menuOpen ? <FaTimes size={22} /> : (
+                        <>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </>
                     )}
+                </button>
+            </div>
+
+            {menuOpen && (
+                <div className="nav-links open">
                     {navItems.map((item) => (
                         <a
                             key={item.href}
@@ -58,13 +69,7 @@ export default function Navbar() {
                         Let's Talk
                     </a>
                 </div>
-
-                <button className="nav-toggle" onClick={() => setMenuOpen(true)} aria-label="Open menu">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </button>
-            </div>
+            )}
         </nav>
     )
 }
