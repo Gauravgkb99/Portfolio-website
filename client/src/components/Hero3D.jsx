@@ -142,7 +142,7 @@ export default function Hero3D() {
                     <a href="https://www.linkedin.com/in/gauravgkb99" target="_blank" rel="noreferrer" className="btn btn-outline">
                         <FaLinkedin /> LinkedIn
                     </a>
-                    <a href="https://drive.google.com/file/d/1lhw-U1usZ2AgZw42YV99q6C3X93J-2rb/view?usp=sharing" target="_blank" rel="noreferrer" className="btn btn-outline">
+                    <a href="https://drive.google.com/file/d/1tA1Sucgun55ptF5Sua9DcgPfzWyMkV-j/view?usp=sharing" target="_blank" rel="noreferrer" className="btn btn-outline">
                         <FaFileAlt /> Resume
                     </a>
                 </div>

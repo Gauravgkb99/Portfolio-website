@@ -99,7 +99,7 @@ export default function About() {
                         <div className="resume-info">
                             <h3>My Resume</h3>
                             <p>A detailed overview of my experience, skills, and education.</p>
-                            <a href="https://drive.google.com/file/d/1lhw-U1usZ2AgZw42YV99q6C3X93J-2rb/view?usp=sharing" target="_blank" rel="noreferrer" className="btn btn-primary" style={{ padding: '12px 28px', fontSize: '0.9rem' }}>
+                            <a href="https://drive.google.com/file/d/1tA1Sucgun55ptF5Sua9DcgPfzWyMkV-j/view?usp=sharing" target="_blank" rel="noreferrer" className="btn btn-primary" style={{ padding: '12px 28px', fontSize: '0.9rem' }}>
                                 <GrDocumentText /> View Resume
                             </a>
                         </div>
