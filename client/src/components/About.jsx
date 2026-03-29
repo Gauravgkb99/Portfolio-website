@@ -3,7 +3,7 @@ import { FaCode, FaLaptopCode, FaLightbulb, FaTrophy, FaDownload } from 'react-i
 import { GrDocumentText } from "react-icons/gr";
 
 const stats = [
-    { icon: <FaTrophy />, number: '1250+', label: 'LeetCode Problems' },
+    { icon: <FaTrophy />, number: '1300+', label: 'LeetCode Problems' },
     { icon: <FaCode />, number: '1+', label: 'Years Experience' },
     { icon: <FaLaptopCode />, number: '3+', label: 'Programming Languages' },
     { icon: <FaLightbulb />, number: '6+', label: 'Projects Built' },
